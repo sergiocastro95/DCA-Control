@@ -5,7 +5,7 @@ use Firebase\JWT\JWT; //usando la libreria jwt
 
 class TokenService
 {
-	private static $secret_key = 'KeyBand';
+	private static $secret_key = 'DCABand';
 	private static $encrypt = ['HS256'];
 	private static $aud = null;
 

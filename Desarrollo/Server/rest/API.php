@@ -1,5 +1,13 @@
 <?php
 require_once "Resources/UsuarioResource.php"; 
+require_once "Resources/EnfermedadResource.php";
+require_once "Resources/HistorialResource.php";
+require_once "Resources/HrResource.php";
+require_once "Resources/LoginResource.php";
+require_once "Resources/PacienteResource.php";
+require_once "Resources/TemperaturaResource.php";
+require_once "Resources/TratamientoResource.php";
+
 
 class API {    
 
@@ -23,8 +31,7 @@ class API {
         $resource = $_GET['resource'];
         switch ($resource){
             case 'login':
-            	echo "funciona";
-            	//LoginResource::methodLogin($method,$type);
+            	LoginResource::methodLogin($method,$type);
                 break;
                 
             case 'usuario':
@@ -32,27 +39,27 @@ class API {
                 break;
                 
             case 'hr':
-              //  ProductoResource::methodProducto($method,$type);
+                HrResource::methodhr($method,$type);
                 break;
 
             case 'paciente': 
-              //  EstanciaResource::methodEstancia($method,$type);
+                PacienteResource::methodPaciente($method,$type);
                 break;
                 
             case 'enfermedad':
-            //	PulseraResource::methodPulsera($method,$type);
+            	EnfermedadResource::methodEnfermedad($method,$type);
                 break;
 
             case 'historial':
-              //  PermisoResource::methodPermiso($method,$type);
+                HistorialResource::methodHistorial($method,$type);
             	break;
             	
             case 'temperatura':
-            	//	PromocionResource::methodPromocion($method,$type);
+            	TpResource::methodtp($method,$type);
        		break;
                 
             case 'tratamiento':
-              // 	RolResource::methodRol($method,$type);
+            	TtResource::methodTratamiento($method,$type);
                 break;
             
             default:
@@ -100,7 +107,7 @@ class API {
        
     }
     public function isResource($resource){//añadir al array por cada nuevo recurso que se cree
-    	$array = array("usuario","medicacion","historial","paciente", "hr", "temperatura", "enfermedad", "login");
+    	$array = array("usuario","tratamiento","historial","paciente", "hr", "temperatura", "enfermedad", "login");
         $longitud = count($array);
         for($i=0; $i<$longitud; $i++){
             if($resource==$array[$i])
