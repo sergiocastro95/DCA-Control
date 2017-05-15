@@ -1,7 +1,7 @@
 export class config {
     public url;
     constructor() {
-        this.url = 'URRRRRRRRRRRRLLLLLLLLLLL';
+        this.url = 'http://localhost/TFG/Desarrollo/Server/rest';
      }
 
 }

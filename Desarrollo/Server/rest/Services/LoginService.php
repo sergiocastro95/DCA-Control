@@ -45,6 +45,7 @@ class LoginService {
 			$return['response'] = "Ok";
 			$return['id'] = $dataArray[0]['id'];
 			$return['password'] = $dataArray[0]['password'];
+			$return['rol'] = $dataArray[0]['rol'];
 			//$dataArray2 = LoginDAO::updateTkn($datos['usuario'], $token);
 			//$return['token'] = $token;
 	
@@ -53,6 +54,7 @@ class LoginService {
 			$return['response'] = "Error";
 			$return['id'] = "";
 			$return['password'] = "";
+			$return['rol'] = "";
 			//$return['token'] = "";
 		}
 	

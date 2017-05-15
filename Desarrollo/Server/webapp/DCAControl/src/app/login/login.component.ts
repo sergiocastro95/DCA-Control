@@ -10,17 +10,25 @@ import {RouterModule,ActivatedRoute,Router, Params} from '@angular/router';
 export class LoginComponent implements OnInit {
 
   constructor(private loginservice: LoginserviceService,  private router:Router) { }
-
-  doLogin(dni, password) {
+  private login;
+  doLogin(email, password) {
+    alert(email);
+    alert(password);
      event.preventDefault();
-     this.loginservice.login();
-     //this.loginService.postLogin(dni, password);
-     alert("LOGIIIIIIIN");
-     if(1==1){
-      this.router.navigate(['/inicio']);
-     }else{
-
-     }
+     this.loginservice.login(email, password).subscribe(response=>{
+                 this.login = response;
+                        if(response.response == "Ok"){
+                          sessionStorage.setItem("userid", response.id);
+                          sessionStorage.setItem("rol", response.rol);
+                          this.router.navigate(['/log']);
+                        }else{
+                          alert("Error");
+                        }
+                },
+                error => {
+                        alert("Error en la petición");
+                }
+            );  
 
  }
  resgristro(dni, password) {
@@ -30,7 +38,11 @@ export class LoginComponent implements OnInit {
      
  }
   ngOnInit() {
-   
+    if(sessionStorage.getItem("userid") === null){
+      alert("No hay sesión iniciada");
+    }else{
+      this.router.navigate(['/log']);
+    }
   }
   
 }

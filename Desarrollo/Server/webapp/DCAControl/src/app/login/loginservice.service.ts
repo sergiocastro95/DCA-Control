@@ -10,9 +10,11 @@ import {Observable} from "rxjs/Observable";
 export class LoginserviceService {
 
   constructor(private http: Http) { }
-  login(){
-    alert(new config().url);
-  }
+  login(email,password){  
+      let enviar = JSON.stringify({email,password});
+      return this.http.post(new config().url+"/login/usuario", enviar)
+                      .map(response => response.json())          
+    }
   registro(){
 
   }

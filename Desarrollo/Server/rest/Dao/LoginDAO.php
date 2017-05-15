@@ -29,7 +29,7 @@ class LoginDAO{
 		try {
 			$conection = openConection();
 			/*DELETE FROM films WHERE kind = 'Musical'*/
-			$sql = "SELECT id, password from usuario where id= '".$user['id']."' and password='".$user['password']."'";
+			$sql = "SELECT id, password, rol from usuario where email= '".$user['email']."' and password='".$user['password']."'";
 			// $sql;
 			$result = @pg_query($conection, $sql);
 			if (!$result) {//Resultado erroneo
