@@ -27,16 +27,9 @@ class UsuarioResource{
 	public static function getUsuario($type){
 		//comprobar siempre que haya un recurso de letras que se corresponde a una petición valida, haya uno o muchos casos de ese tipo
 		switch ($type) {
-			case '1':   //TODO usuario ESTO ES PARA LAS PRUEBAS
-				//Cojo los par�metros que me han pasado por URL
-				$params = SupportResource::getParams(1);
-
-				//Extraigo los par�metros de order,filtros y de paginaci�n que me interesan
-				$order = SupportResource::extractOrder($params);
-				$pagination = SupportResource::extractPagination($params);
-				$where = SupportResource::extractWhere($params);
-				if(UsuarioResource::ValidGet($where))
-					UsuarioService::getUsuarios($where,$order,$pagination);
+			case '4':   //TODO usuario ESTO ES PARA LAS PRUEBAS
+				
+			UsuarioService::getMedicos();
 				break;
 			case '2':   //usuario/id
 				if(1==1) //valid token y si el id es el que pide( con el token se saca el id

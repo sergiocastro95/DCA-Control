@@ -46,7 +46,7 @@ class API {
                 PacienteResource::methodPaciente($method,$type);
                 break;
                 
-            case 'enfermedad':
+            case 'patologia':
             	EnfermedadResource::methodEnfermedad($method,$type);
                 break;
 
@@ -107,7 +107,7 @@ class API {
        
     }
     public function isResource($resource){//añadir al array por cada nuevo recurso que se cree
-    	$array = array("usuario","tratamiento","historial","paciente", "hr", "temperatura", "enfermedad", "login");
+    	$array = array("usuario","medico","tratamiento","historial","paciente", "hr", "temperatura", "patologia", "login");
         $longitud = count($array);
         for($i=0; $i<$longitud; $i++){
             if($resource==$array[$i])

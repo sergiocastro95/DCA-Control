@@ -10,6 +10,10 @@ class PacienteService {
 		$dataArray = PacienteDAO::getById($id);
 		echo json_encode($dataArray);
 	}
+	public static function getUsuarioByPaciente($id){
+		$dataArray = PacienteDAO::getUsuById($id);
+		echo json_encode($dataArray);
+	}
 	public static function insertPaciente($paciente){
 		$dataArray = PacienteDAO::insert($paciente);
 		echo json_encode($dataArray);

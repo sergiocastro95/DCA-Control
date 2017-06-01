@@ -29,7 +29,7 @@ class HistorialDAO{
 		try {
 			$conection = openConection();
 			/*DELETE FROM films WHERE kind = 'Musical'*/
-			$sql = "SELECT * from historial where paciente = '".$idpac."'";
+			$sql = "SELECT * from historial where paciente = '".$idpac."' order by fecha desc";
 			//echo $sql;
 			$result = @pg_query($conection, $sql);
 			if (!$result) {//Resultado erroneo

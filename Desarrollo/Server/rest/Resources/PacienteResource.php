@@ -33,6 +33,12 @@ class PacienteResource{
 				else
 						header('HTTP/1.1 405 Method Not Allowed');
 				break;
+			case '5':   //paciente/id_paciente
+				if($_GET['resource2'] == "usuario") //valid token y si el paciente es de ese usuario( con el token se saca el id_usuario)
+					PacienteService::getUsuarioByPaciente($_GET['resource3']);
+				else
+					header('HTTP/1.1 405 Method Not Allowed');
+					break;
 			default:
 				header('HTTP/1.1 405 Method Not Allowed');
 				break;
@@ -101,13 +107,13 @@ class PacienteResource{
 	}
 	public static function ValidPut($objArr){
 		$arrayKeys= array_keys($objArr);
-		if(count($arrayKeys)!=4){
+		if(count($arrayKeys)!=6){
 			SupportResource::echoError("campos de mas o falta algun not null");
 			return false;
 		}
 		//AQUI VALIDA LA KEY
-		$arrayNotNull=array("sip", "nombre", "password", "apellidos");
-		$arraycol = array("sip", "nombre", "password", "apellidos");
+		$arrayNotNull=array("sip", "nombre", "password", "apellidos","medico", "responsable" );
+		$arraycol = array("sip", "nombre", "password", "apellidos", "medico", "responsable");
 		if($objArr!=null){
 			foreach($objArr as $key => $key_value) {
 				if(!in_array($key, $arraycol)){

@@ -6,8 +6,8 @@ require_once "./Dao/MasterDAO.php";
 /*AQU� LLAMAMOS AL DAO Y DEVOLVEMOS AL CLIENTE MEDIANTE ECHO*/
 /*HABRA� QUE CONFIGURAR AQUI LOS CODIGOS DE ERROR*/
 class UsuarioService {
-	public static function getUsuarios ($where,$order,$pagination) {
-		$dataArray = MasterDAO::getAll("usuario",null,$where,$order,$pagination);
+	public static function getMedicos () {
+		$dataArray =  UsuarioDAO::getMedicos();
 		echo json_encode($dataArray);
 	}
 	public static function getUsuarioById($id){

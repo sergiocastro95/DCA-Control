@@ -23,7 +23,8 @@ class HrResource{
 		switch ($type) {
 			case '5':   //hr/paciente/id_paciente
 				if($_GET['resource2'] == "paciente"  && 1==1) //valid token y si el id es el que pide( con el token se saca el id
-					HrService::getHrByPaciente($_GET['resource3']);
+					//HrService::getHrByPaciente($_GET['resource3']);
+					echo($_GET['hora']);
 					else
 						header('HTTP/1.1 405 Method Not Allowed');
 				break;

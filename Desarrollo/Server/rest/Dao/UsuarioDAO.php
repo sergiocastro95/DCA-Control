@@ -24,6 +24,30 @@ class UsuarioDAO{
 		}
 		return $dataArray;
 	}
+	public static function getMedicos(){
+		$dataArray = array();
+		try {
+			$conection = openConection();
+			/*DELETE FROM films WHERE kind = 'Musical'*/
+			$sql = "SELECT id, nombre from usuario where rol='2'";
+			//echo $sql;
+			$result = @pg_query($conection, $sql);
+			if (!$result) {//Resultado erroneo
+				header('HTTP/1.1 200 Error con la base de datos');
+				return error_get_last();
+			}else{//Resultado correcto
+				$count = pg_numrows($result);
+				for($i=0; $i<$count; $i++) {
+					$row = pg_fetch_assoc ($result);
+					$dataArray[] = $row;
+				}
+			}
+			@pg_close($conection);
+		}catch(Exception $e){
+			throw new Exception ($e->getMessage());
+		}
+		return $dataArray;
+	}
 	public static function getPacientes($id){
 		$dataArray = array();
 		try {
@@ -51,21 +75,33 @@ class UsuarioDAO{
 	public static function insert($usuario){
 		$dataArray = array();
 		try {
+			
 			$conection = openConection();
-			/*DELETE FROM films WHERE kind = 'Musical'*/
-			$sql = "INSERT into usuario (email, nombre, password, telefono, rol) values ('".$usuario['email']."','".$usuario['nombre']."','".$usuario['password']."','".$usuario['telefono']."','".$usuario['rol']."')";
-			//echo $sql;
-			$result = @pg_query($conection, $sql);
-			if (!$result) {//Resultado erroneo
+			$sqlaux = "SELECT nombre from usuario where email='".$usuario['email']."'";
+			$resulaux =  @pg_query($conection, $sqlaux);
+			if(!$resulaux){
 				header('HTTP/1.1 200 Error con la base de datos');
+				$dataArray['response'] = "Error";
 				return error_get_last();
-			}else{//Resultado correcto
-				$count = pg_numrows($result);
-				for($i=0; $i<$count; $i++) {
-					$row = pg_fetch_assoc ($result);
-					$dataArray[] = $row;
+			}else{
+				$count = pg_numrows($resulaux);
+				if($count==0){
+					$sql = "INSERT into usuario (email, nombre, password, telefono, rol) values ('".$usuario['email']."','".$usuario['nombre']."','".$usuario['password']."','".$usuario['telefono']."','".$usuario['rol']."')";
+					//echo $sql;
+					$result = @pg_query($conection, $sql);
+					if (!$result) {//Resultado erroneo
+						header('HTTP/1.1 200 Error con la base de datos');
+						$dataArray['response'] = "Error";
+						return error_get_last();
+					}else{//Resultado correcto
+						$dataArray['response'] = "Ok";
+					}
+				}else{
+					$dataArray['response'] = "Error";
 				}
 			}
+			/*DELETE FROM films WHERE kind = 'Musical'*/
+			
 			@pg_close($conection);
 		}catch(Exception $e){
 			throw new Exception ($e->getMessage());
