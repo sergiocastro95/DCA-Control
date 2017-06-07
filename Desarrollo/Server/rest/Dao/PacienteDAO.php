@@ -24,6 +24,30 @@ class PacienteDAO{
 		}
 		return $dataArray;
 	}
+	public static function getNovedades($id){
+		$dataArray = array();
+		try {
+			$conection = openConection();
+			/*DELETE FROM films WHERE kind = 'Musical'*/
+			$sql = "SELECT episodios_nuevos, tratamientos_nuevos from paciente where sip= '".$id."'";
+			//echo $sql;
+			$result = @pg_query($conection, $sql);
+			if (!$result) {//Resultado erroneo
+				header('HTTP/1.1 200 Error con la base de datos');
+				return error_get_last();
+			}else{//Resultado correcto
+				$count = pg_numrows($result);
+				for($i=0; $i<$count; $i++) {
+					$row = pg_fetch_assoc ($result);
+					$dataArray[] = $row;
+				}
+			}
+			@pg_close($conection);
+		}catch(Exception $e){
+			throw new Exception ($e->getMessage());
+		}
+		return $dataArray;
+	}
 	public static function getUsuById($id){
 		$dataArray = array();
 		try {
@@ -107,6 +131,54 @@ class PacienteDAO{
 				}
 				$i++;
 			}
+			$sql = $sql." where sip= '".$id."'";
+			//echo $sql;
+			$result = @pg_query($conection, $sql);
+			if (!$result) {//Resultado erroneo
+				header('HTTP/1.1 200 Error con la base de datos');
+				return error_get_last();
+			}else{//Resultado correcto
+				$count = pg_numrows($result);
+				for($i=0; $i<$count; $i++) {
+					$row = pg_fetch_assoc ($result);
+					$dataArray[] = $row;
+				}
+			}
+			@pg_close($conection);
+		}catch(Exception $e){
+			throw new Exception ($e->getMessage());
+		}
+		return $dataArray;
+	}
+	public static function updateNov($usuario,$id){
+		$dataArray = array();
+		try {
+			$conection = openConection();
+			/*DELETE FROM films WHERE kind = 'Musical'*/
+			$sql = "UPDATE paciente SET ";
+			if($usuario['tipo']=="1"){//usuario
+				$sql = $sql."tratamientos_nuevos=0";
+			}else if($usuario['tipo']=="2"){//medico
+				$sql = $sql."episodios_nuevos=0";
+			}
+			/*$i = 0;
+			$keys = "";
+			$values = "";
+	
+			foreach($usuario as $key => $key_value) {
+				if($i==0) {
+					if(!$key_value)
+						$sql = $sql.$key."= NULL";
+						else
+							$sql = $sql.$key."='".$key_value."'";
+				} else {
+					if(!$key_value)
+						$sql = $sql.",".$key."= NULL";
+						else
+							$sql = $sql.",".$key."='".$key_value."'";
+				}
+				$i++;
+			}*/
 			$sql = $sql." where sip= '".$id."'";
 			//echo $sql;
 			$result = @pg_query($conection, $sql);

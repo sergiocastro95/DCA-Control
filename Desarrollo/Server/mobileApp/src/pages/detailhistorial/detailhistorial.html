@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+        Detalle episodio
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <img src="images/episodio.jpg"/>
+    <div id="contenido">
+         <h5 class="pad">Fecha:</h5> 
+        <p class="pad">{{fecha}}</p>
+         <h5 class="pad">Descripción:</h5>        
+      <ion-item>
+        <textarea rows="6" style="width: 100%;" [(ngModel)]="descripcion" value="{{descripcion}}"></textarea>
+      </ion-item>
+        <ion-item>
+            <button id="save" ion-button (click)="setEpisodio();">Guardar cambios</button>
+        </ion-item>
+    </div>
+    
+</ion-content>

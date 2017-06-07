@@ -28,8 +28,8 @@ class UsuarioResource{
 		//comprobar siempre que haya un recurso de letras que se corresponde a una petición valida, haya uno o muchos casos de ese tipo
 		switch ($type) {
 			case '4':   //TODO usuario ESTO ES PARA LAS PRUEBAS
-				
-			UsuarioService::getMedicos();
+			if($_GET['resource2']=="medico")
+				UsuarioService::getMedicos();
 				break;
 			case '2':   //usuario/id
 				if(1==1) //valid token y si el id es el que pide( con el token se saca el id
@@ -39,6 +39,8 @@ class UsuarioResource{
 				if($_GET['resource2']=="paciente") {
 					if(1==1) //valid token y si el id es el del token( con el token se saca el id
 						UsuarioService::getPacientes($_GET['resource3']);
+				}else if($_GET['resource2']=="novedades"){
+					UsuarioService::getNovedades($_GET['resource3']);
 				}else{
 					header('HTTP/1.1 405 Method Not Allowed');
 				}

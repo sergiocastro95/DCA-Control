@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {MainPipe} from './tools/pipe.module';
 import {AppRoutingModule } from './routing';
-
+import { ChartsModule } from 'ng2-charts';
 import { AppComponent } from './app.component';
 import { AmChartsModule } from "amcharts3-angular2";
 import { DetailpacienteComponent } from './detailpaciente/detailpaciente.component';
@@ -40,7 +40,8 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
     HttpModule,
     AppRoutingModule,
     MainPipe,
-    AmChartsModule
+    AmChartsModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

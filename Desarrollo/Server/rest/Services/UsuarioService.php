@@ -18,6 +18,10 @@ class UsuarioService {
 		$dataArray = UsuarioDAO::getPacientes($id);
 		echo json_encode($dataArray);
 	}
+	public static function getNovedades($id){
+		$dataArray = UsuarioDAO::getNovedades($id);
+		echo json_encode($dataArray);
+	}
 	public static function insertUsuario($usuario){		
 		$dataArray = UsuarioDAO::insert($usuario);
 		echo json_encode($dataArray);

@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Tratamientos
+    </ion-title>
+     <ion-buttons end>
+      <logout></logout>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<ion-list >
+  <p>Lista de tratamientos activos</p>
+  <ion-item *ngFor="let item of tratamientos" (click)="detalleTratamiento(item.id)">{{item.nombre}}</ion-item>
+  
+</ion-list>
+</ion-content>

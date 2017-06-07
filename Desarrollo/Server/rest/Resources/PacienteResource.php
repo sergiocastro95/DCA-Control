@@ -34,8 +34,11 @@ class PacienteResource{
 						header('HTTP/1.1 405 Method Not Allowed');
 				break;
 			case '5':   //paciente/id_paciente
-				if($_GET['resource2'] == "usuario") //valid token y si el paciente es de ese usuario( con el token se saca el id_usuario)
+				if($_GET['resource2'] == "usuario"){ //valid token y si el paciente es de ese usuario( con el token se saca el id_usuario)
 					PacienteService::getUsuarioByPaciente($_GET['resource3']);
+				}else if($_GET['resource2'] == "novedades"){
+					PacienteService::getNovedades($_GET['resource3']);
+				}
 				else
 					header('HTTP/1.1 405 Method Not Allowed');
 					break;
@@ -52,6 +55,13 @@ class PacienteResource{
 		switch ($type) {
 			case '2':   //paciente/id
 				$dataArray = PacienteService::updatePaciente($objArr,$_GET['resource2']);
+				break;
+			case '5':
+				if($_GET['resource2']=="novedades"){
+					PacienteService::updateNovedades($objArr,$_GET['resource3']);
+				}else{
+					header('HTTP/1.1 405 Method Not Allowed');
+				}
 				break;
 			default:
 				header('HTTP/1.1 405 Method Not Allowed');

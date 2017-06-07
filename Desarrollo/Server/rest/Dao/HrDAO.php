@@ -6,7 +6,17 @@ class HrDAO{
 		try {
 			$conection = openConection();
 			/*DELETE FROM films WHERE kind = 'Musical'*/
-			$sql = "SELECT * from hr where paciente = '".$idpac."'";
+			if( isset($_GET['fecha'])){
+				if($_GET['fecha']=="last"){
+					$sql = "SELECT * from hr where paciente = '".$idpac."' order by tiempo desc limit 10";
+				}else{
+					$sql = "SELECT tiempo as date, hr from hr where paciente = '".$idpac."' and tiempo>='".$_GET['fecha']."' and tiempo<='".$_GET['hasta']."'";
+				}
+				
+			}else{
+				$sql = "SELECT * from hr where paciente = '".$idpac."'";
+			}
+			
 			//echo $sql;
 			$result = @pg_query($conection, $sql);
 			if (!$result) {//Resultado erroneo
@@ -17,6 +27,9 @@ class HrDAO{
 				for($i=0; $i<$count; $i++) {
 					$row = pg_fetch_assoc ($result);
 					$dataArray[] = $row;
+				}
+				if($count==0){
+					$dataArray['vacio'] ="vacio";
 				}
 			}
 			@pg_close($conection);

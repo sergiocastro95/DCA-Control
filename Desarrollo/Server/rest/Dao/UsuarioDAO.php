@@ -53,7 +53,31 @@ class UsuarioDAO{
 		try {
 			$conection = openConection();
 			/*DELETE FROM films WHERE kind = 'Musical'*/
-			$sql = "SELECT p.* from paciente as p, paciente_usuario as pu where p.sip=pu.paciente and pu.usuario = ".$id;
+			$sql = "SELECT p.SIP, p.nombre, p.apellidos from paciente as p, paciente_usuario as pu where p.sip=pu.paciente and pu.usuario = ".$id;
+			//echo $sql;
+			$result = @pg_query($conection, $sql);
+			if (!$result) {//Resultado erroneo
+				header('HTTP/1.1 200 Error con la base de datos');
+				return error_get_last();
+			}else{//Resultado correcto
+				$count = pg_numrows($result);
+				for($i=0; $i<$count; $i++) {
+					$row = pg_fetch_assoc ($result);
+					$dataArray[] = $row;
+				}
+			}
+			@pg_close($conection);
+		}catch(Exception $e){
+			throw new Exception ($e->getMessage());
+		}
+		return $dataArray;
+	}
+	public static function getNovedades($id){
+		$dataArray = array();
+		try {
+			$conection = openConection();
+			/*DELETE FROM films WHERE kind = 'Musical'*/
+			$sql = "SELECT p.sip,p.nombre, p.apellidos, p.episodios_nuevos, p.tratamientos_nuevos from paciente as p, paciente_usuario as pu where p.sip=pu.paciente and pu.usuario = ".$id;
 			//echo $sql;
 			$result = @pg_query($conection, $sql);
 			if (!$result) {//Resultado erroneo

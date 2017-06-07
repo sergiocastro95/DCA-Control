@@ -14,6 +14,10 @@ class PacienteService {
 		$dataArray = PacienteDAO::getUsuById($id);
 		echo json_encode($dataArray);
 	}
+	public static function getNovedades($id){
+		$dataArray = PacienteDAO::getNovedades($id);
+		echo json_encode($dataArray);
+	}
 	public static function insertPaciente($paciente){
 		$dataArray = PacienteDAO::insert($paciente);
 		echo json_encode($dataArray);
@@ -22,6 +26,11 @@ class PacienteService {
 		$dataArray = PacienteDAO::update($obj, $id);
 		echo json_encode($dataArray);
 
+	}
+	public static function updateNovedades($obj,$id) {
+		$dataArray = PacienteDAO::updateNov($obj, $id);
+		echo json_encode($dataArray);
+	
 	}
 	public static function deletePaciente($id) {
 		$dataArray = PacienteDAO::delete($id);

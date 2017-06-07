@@ -60,7 +60,7 @@ class EnfermedadResource{
 		$obj = json_decode( file_get_contents('php://input'));
 		$objArr = (array)$obj;
 		switch ($type) {
-			case '1':   // enfermedad
+			case '1':   // patologia
 				if(EnfermedadResource::ValidPut($objArr))
 					$dataArray = EnfermedadService::insertEnf($objArr);
 					break;

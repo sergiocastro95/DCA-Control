@@ -1,3 +1,39 @@
-<p>
-  inicio works!
-</p>
+<div class="content-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="page-head-line">Novedades </h4>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12" *ngIf="iniciado">
+                  <div class=" panel panel-default" *ngFor="let novedad of novedades | keys">
+                    <div class="panel-heading">
+                      {{novedad.value.nombre}}
+                    </div>
+                    <div class="panel-body">
+                      <div class="col-md-6">
+                      <div class="panel panel-danger">
+                        <div class ="panel-heading">Nuevos episodios</div>
+                        <div class="panel-body">
+                          <p>{{novedad.value.mensaje}}. Pulse <a [routerLink]="['/panel/pacientes/', novedad.value.id]">aquí</a> para más detalles.</p>
+                        </div>
+                      </div>
+                      </div>
+                      <div class="col-md-6">
+                      <div class="panel panel-info">
+                        <div class ="panel-heading">Nuevos tratamientos</div>
+                        <div class="panel-body">
+                          <p>{{novedad.value.mensaje2}}. Pulse <a [routerLink]="['/panel/pacientes/', novedad.value.id]">aquí</a> para más detalles.</p>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>

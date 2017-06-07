@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Inicio</ion-title>
+    <ion-buttons end>
+      <logout></logout>
+    </ion-buttons>
+    
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card (click)="goTo(1)">
+  <img src="images/tratamiento.jpg"/>
+  <ion-card-content>
+    <ion-card-title>
+     Tratamientos nuevos
+      </ion-card-title>
+    <p>
+     {{mensaje}}
+    </p>
+  </ion-card-content>
+</ion-card>
+
+<ion-card (click)="goTo(2)">
+  <img src="images/historial.jpg"/>
+  <ion-card-content>
+    <ion-card-title>
+     Episodios nuevos
+      </ion-card-title>
+    <p>
+     {{mensaje2}}
+    </p>
+  </ion-card-content>
+</ion-card>
+  
+</ion-content>

@@ -39,24 +39,57 @@
                               <p>{{email}}</p>
                             </div>
                             <div *ngIf="espadre == true">
-                                <input type="button" class="btn btn-info pull-right" value="Editar Perfil" (click)='editarperfil();'>
+                                <input type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#EditProfile" value="Editar Perfil">
                             </div>
+                            <hr  style="margin-top: 60px;" />
+                            <h3>Patologías:</h3>
                            
+                             <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Descripción</th>
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let Patologia of pat | keys">
+						
+																						<td>{{Patologia.value.nombre}}</td>
+																						<td>{{Patologia.value.descripcion}}</td>
+																						
+																				</tr>
+                                    </tbody>
+                                </table>
+                                 <div *ngIf="espadre == false">
+                                    <input type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#AddPatologia" value="Añadir patología">
+                                </div>
                             </div>
                             </div>
                     </div>
                     <div class="col-md-6">
                         <div class="panel panel-default">
                         <div class="panel-heading">
-                           últimos datos médicos
+                          <h3> Últimos datos médicos</h3>
                         </div>
-                        <a routerLink="./hr">Gráfica HR</a>
+                        <div *ngIf="hayhr!=true">Todavía no hay datos del ritmo cardíaco. Por favor, sigue la <a routerLink="/panel/guia"> guía </a> para más detalles.</div>
+                        <a routerLink="./hr">
+                         <div style="display: block;">
+                        <canvas style="margin-top: 10px;" baseChart width="400" height="200"
+                                    [datasets]="lineChartData"
+                                    [labels]="lineChartLabels"
+                                    [options]="lineChartOptions"
+                                    [colors]="lineChartColors"
+                                    [legend]="lineChartLegend"
+                                    [chartType]="lineChartType"></canvas>
+                        </div>
+                        </a>
                         <div class="panel-body">
-                            <h3>Tratamiento actual</h3>
+                            <h3>Historial médico</h3>
                             <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Fecha</th>
+                                            <th>Nombre</th>
                                             <th>Descripción</th>
                                            
                                         </tr>
@@ -72,32 +105,119 @@
                                 </table>
                             <hr />
                             <div class="form-group">
-                                            <label>Select Example</label>
-                                            <select class="form-control">
-                                                <option>One Vale</option>
-                                                <option>Two Vale</option>
-                                                <option>Three Vale</option>
-                                                <option>Four Vale</option>
-                                            </select>
+                                           <h3>Tratamiento actual</h3>
+                                            <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Descripción</th>
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let Tratamiento of trat | keys">
+						
+																						<td>{{Tratamiento.value.nombre}}</td>
+																						<td>{{Tratamiento.value.descripcion}}</td>
+																						
+																				</tr>
+                                    </tbody>
+                                </table>
+                                 <div *ngIf="espadre == false">
+                                    <input type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#AddTratamiento" value="Añadir Tratamiento">
+                                </div>
                                         </div>
-                            <hr />
-                            <div class="form-group">
-                                            <label>Multiple Select Example</label>
-                                            <select multiple="" class="form-control">
-                                                <option>One Vale</option>
-                                                <option>Two Vale</option>
-                                                <option>Three Vale</option>
-                                                <option>Four Vale</option>
-                                            </select>
-                                        </div>
-                            <hr />
-                            For more customization for this template or its components please
-                             visit official bootstrap website i.e <strong> getbootstrap.com </strong> or
-                            <a href="http://getbootstrap.com/css/#forms" target="_blank">click here</a>
-
+                          
+                           
                         </div>
                             </div>
                         </div>
                 </div>
         </div>
+
     </div>
+    
+<!-- Modal Editar perfil -->
+  <div class="modal fade" id="EditProfile" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Editar perfil</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+                     <label>Email : </label>
+                        <input type="email" class="form-control" id="email2"  #email2 value="{{email}}"/>
+                        <label>Nombre : </label>
+                        <input type="text" class="form-control" id="nombre2"  #nombre2 value="{{responsable}}" />
+                      <label>Contraseña :  </label>
+                      <input type="password" class="form-control" id="password2"  #password2/>
+                       <label>Repetir contraseña :  </label>
+                      <input type="password" class="form-control" id="passwordd"  #passwordd/>
+                      <label>Teléfono :  </label>
+                      <input type="text" class="form-control" id="telefono2"  #telefono2 value="{{telefono}}"/>
+                      <hr />
+                      <button class="btn btn-info" type="button" (click)="editarperfil(email2.value, password2.value,passwordd.value, nombre2.value, telefono2.value)" data-dismiss="modal"><span class="glyphicon glyphicon-user" ></span> Editar</button>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal Añadir patología -->
+  <div class="modal fade" id="AddPatologia" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Añadir patología</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+                        <label>Nombre : </label>
+                        <input type="text" class="form-control" id="nombrepat"  #nombrepat />
+                      
+                      <label>Descripción :  </label>
+                      <textarea class="form-control" id="descripcionpat"  #descripcionpat ></textarea>
+                      <hr />
+                      <button class="btn btn-info" type="button" (click)="addpatologia(nombrepat.value,descripcionpat.value)" data-dismiss="modal"><span class="glyphicon" ></span> Añadir patología</button>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal Añadir patología -->
+  <div class="modal fade" id="AddTratamiento" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Añadir tratamiento</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+                        <label>Nombre : </label>
+                        <input type="text" class="form-control" id="nombretrat"  #nombretrat />
+                      
+                      <label>Descripción :  </label>
+                      <textarea class="form-control" id="descripciontrat"  #descripciontrat ></textarea>
+                      <hr />
+                      <button class="btn btn-info" type="button" (click)="addTratamiento(nombretrat.value,descripciontrat.value)" data-dismiss="modal"><span class="glyphicon" ></span> Añadir tratamiento</button>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+

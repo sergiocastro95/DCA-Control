@@ -8,6 +8,54 @@
 
             </div>
             <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                        <div class="panel-heading">
+                           Filtrado por fecha y hora
+                        </div>
+                        <div class="panel-body">
+                            <form >
+                    <input class="form-control" type="date" name="bday" #bday min="2000-01-02"><br>
+                    <div id="row">
+                       <div class="col-md-6">
+                            Desde las:
+                            <input type="time" id="exampleInput" name="input"  #desde placeholder="HH:mm:ss" min="00:00:00" max="23:59:00"/>
+                       </div>
+                        <div class="col-md-6">
+                            Hasta las:
+                            <input type="time" id="exampleInput" name="input" #hasta placeholder="HH:mm:ss" min="00:00:00" max="23:59:00" />
+                        </div>
+                    </div>
+        
+                    <input type="button" class="btn btn-info pull-right" (click)="setfecha(bday.value, desde.value, hasta.value)" value="Filtrar fecha" style="margin-top: 20px;"> 
+                   
+                    
+                </form>
+                        </div>
+                    </div>
+               
+            </div>
+            <div class="col-md-8">
+                <div class="notice-board">
+                    <div class="panel panel-default">
+                        <div class="panel panel-heading">
+                            Datos de interés
+                        </div>
+                        <div class="panel-body">
+                            <div *ngIf="solicitado==true">
+                                <h4>La media de el período seleccionado es {{media}} pulsaciones</h4>
+                                <h4>El pico máximo detectado en este período es de {{picomax}} pulsaciones a las {{hpmax}}</h4>
+                                <h4>El pico mínimo detectado en este período  es de {{picomin}} pulsaciones a las  {{hpmin}}</h4>
+                            </div>
+                             <div *ngIf="solicitado!=true">
+                                 <h4>Aún no has filtrado datos, rellene el cuestrionario de al lado.</h4>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="row">
                 <div id="chartdiv" [style.width.%]="100" [style.height.px]="500"></div>
             </div>
         </div>

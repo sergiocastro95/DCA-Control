@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{nombre}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <img src="images/pills.jpg"/>
+    <div id="contenido">
+        <p class="pad">{{nombre}}</p>
+        <h5 class="pad">Descripción: </h5><p class="pad">{{descripcion}}</p>
+        <ion-item>
+            <ion-label> Notificaciones</ion-label>
+            <ion-toggle [(ngModel)]="notificaciones" (ionChange)="deleteNotificaciones2()"></ion-toggle>
+        </ion-item>
+        <div *ngIf="notificaciones">
+        <ion-item *ngFor="let item of horas">
+            <ion-label>{{item.hora}}</ion-label>
+            <ion-checkbox  [(ngModel)]="item.selected" checked="{{item.selected}}"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+            <button id="save" ion-button (click)="setNotificaciones();">Guardar cambios</button>
+        </ion-item>
+        </div>
+    </div>
+    
+</ion-content>

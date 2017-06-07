@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Historial médico
+    </ion-title>
+     <ion-buttons end>
+      <logout></logout>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<ion-list >
+  <p>Episodios sufridos</p>
+  <ion-item *ngFor="let item of episodios" (click)="detalleEpisodio(item.id)">{{item.fecha}}</ion-item>
+  
+</ion-list>
+</ion-content>
