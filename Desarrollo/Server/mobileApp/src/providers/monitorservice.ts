@@ -37,6 +37,10 @@ export class MonitorService {
                                      
                 });
   }
+  cancelarEscucha(){
+      console.log("Cancelando escucha del HR...");
+      this.ble.stopNotification(this.idband,  '180d', '2a37');
+  }
     recursivo(){
         console.log("recursivo");
         this.datos.push({name:"paco",fecha:"11-22-2013"});

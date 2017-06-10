@@ -13,6 +13,7 @@ export class MonitorPage {
   public idselect ="DF:85:09:6E:05:F8";
   public conectado = false;
   public varinfinita = 0;
+  public intervalo;
   
   constructor(public navCtrl: NavController, public ble: BLE, public monit:MonitorService) {
   console.log("Página monitorizar");
@@ -90,7 +91,11 @@ export class MonitorPage {
                           this.cifrar(data);
 
                         } else{
-                          console.log("Los cambios recibidos no son ni 1 ni 2");
+                          console.log("Ultimo cambio en el servicio fee1:");
+                          let data = new Uint8Array(buffer);
+                          console.log(data);
+                          console.log("Cancelando escucha en servicio fee1...")
+                          this.ble.stopNotification(this.idselect,  'fee1', '00000009-0000-3512-2118-0009af100700');
                         }                    
                     });
             
@@ -111,15 +116,21 @@ export class MonitorPage {
          cabecera[1]=0x8;
          datosEnv.set(cabecera);
          datosEnv.set(buf,cabecera.length);
-         console.log("Lo que envio en la tercera escritura");
-         console.log(datosEnv);
+        // console.log("Lo que envio en la tercera escritura");
+         //console.log(datosEnv);
         console.log("Realizando la tercera escritura..");
         this.ble.writeWithoutResponse(this.idselect,'fee1','00000009-0000-3512-2118-0009af100700',datosEnv.buffer);
     }
     cifrar(buf:Uint8Array){
-      console.log("Voy a cifrar esto");
+      console.log("Cifrando datos...");
       console.log(buf);
-      this.getdate(buf);
+      let esto = this;
+      (<any>window).MyCordovaPlugin.getDate(buf,"2",function (ArrayBufferd) {
+        console.log("Valor devuelto en Uint8Array");
+        var x = new Uint8Array(ArrayBufferd, 0);
+        console.log(x);
+        esto.tercerwrite(x);
+      });
 
     }
      pedirHR(){
@@ -145,13 +156,7 @@ export class MonitorPage {
                     });
     }
     getdate(buf:Uint8Array){
-      let esto = this;
-      (<any>window).MyCordovaPlugin.getDate(buf,"2",function (ArrayBufferd) {
-        console.log("Valor devuelto en Uint8Array");
-        var x = new Uint8Array(ArrayBufferd, 0);
-        console.log(x);
-        esto.tercerwrite(x);
-      });
+      
    
   }
   getDatos(){
@@ -160,10 +165,14 @@ export class MonitorPage {
     console.log(a);
   }
   bubcleinfinito(){
-    setInterval(() => this.llamada(this.monit), 30000);
+    this.intervalo = setInterval(() => this.llamada(this.monit), 30000);
   }
   llamada(monit:MonitorService){
     monit.recursivo();
   }
-
+  cancelarMonitorizacion(){
+    console.log("Monitorizacion cancelada");
+    window.clearInterval(this.intervalo);
+    this.monit.cancelarEscucha();
+  }
 }
