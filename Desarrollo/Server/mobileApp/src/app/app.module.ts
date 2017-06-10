@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import {BLE} from '@ionic-native/ble'
 import { MyApp } from './app.component';
 import { TratamientoPage } from '../pages/tratamiento/tratamiento';
 import { HistorialPage } from '../pages/historial/historial';
@@ -43,6 +44,6 @@ import { LogoutComponent } from '../components/logout/logout';
     DetailHistorialPage,
     MonitorPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, LocalNotifications]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, LocalNotifications, BLE]
 })
 export class AppModule {}
