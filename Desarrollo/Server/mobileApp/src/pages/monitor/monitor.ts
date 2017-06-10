@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { BLE } from '@ionic-native/ble';
 import { NavController } from 'ionic-angular';
-
+import {MonitorService} from '../../providers/monitorservice';
 declare var cordova;
-
 @Component({
   selector: 'page-monitor',
   templateUrl: 'monitor.html'
@@ -13,12 +12,13 @@ export class MonitorPage {
   public data;
   public idselect ="DF:85:09:6E:05:F8";
   public conectado = false;
-  constructor(public navCtrl: NavController, public ble: BLE) {
+  public varinfinita = 0;
   
+  constructor(public navCtrl: NavController, public ble: BLE, public monit:MonitorService) {
   console.log("Página monitorizar");
     
 
-          this.services = this.ble.startScan([]).subscribe(devices => {
+     /*     this.services = this.ble.startScan([]).subscribe(devices => {
           this.data = JSON.stringify(devices); 
             console.log(this.data);
           },
@@ -30,7 +30,7 @@ export class MonitorPage {
           console.log('Scanning has stopped');
           
           });
-          }, 3000);
+          }, 3000);*/
       }
     escanear(){
       this.ble.startScan([]).subscribe(devices => {
@@ -47,7 +47,7 @@ export class MonitorPage {
           });
           }, 3000);
     }
-    conectar2(){
+    conectar(){
       console.log("Conectar");
       // send a 3 byte value with RGB color
       let datosEnv = new Uint8Array(18);
@@ -74,6 +74,7 @@ export class MonitorPage {
       
       this.ble.connect(this.idselect).subscribe(data => {
             console.log("Conectado!");
+            this.monit.setID(this.idselect);
             this.conectado = true;
             console.log("Vinculando...");
             //var buffer  = this.stringToBytes("Test");
@@ -119,24 +120,7 @@ export class MonitorPage {
       console.log("Voy a cifrar esto");
       console.log(buf);
       this.getdate(buf);
-     /* (<any>window).MyCordovaPlugin.getDate(buf,"2",function (ArrayBufferd) {
-      console.log("Valor devuelto del cifrado");*/
-     /* var x = new Uint8Array(ArrayBufferd, 0);
-      console.log(x);
 
-      //console.log(ArrayBufferd);
-    });*/
-
-
-    }
-    conectar() {
-      this.ble.connect(this.idselect).subscribe(
-        peripheralData => {
-          console.log("Conectado a:" + JSON.stringify(peripheralData));
-           
-          },
-      error => console.log("Error Connecting" + JSON.stringify(error))
-      );
     }
      pedirHR(){
       console.log("Pedir HR");
@@ -145,11 +129,7 @@ export class MonitorPage {
             datosEnv[1] = 0x02;
             datosEnv[2] = 0x01;
             this.ble.write(this.idselect,'180d','2a39',datosEnv.buffer).then(buffer => {
-                  console.log("EScribo");
-                 /* console.log(buffer);
-                  var auxxx = new Uint8Array(buffer);
-                  console.log("transformado");
-                  console.log(auxxx);*/
+                  console.log("Pidiendo HR...");
                     
                     
               },error=>{
@@ -157,27 +137,33 @@ export class MonitorPage {
               });
 
               this.ble.startNotification(this.idselect, '180d', '2a37').subscribe(buffer => {
-                        console.log("HEEEAAAAAAAAAAAART RATEEEEEEEEEEEEEEEE:");
+                        console.log("He recibido el HR:");
                         console.log(buffer);
                         let data = new Uint8Array(buffer);
                         console.log(data);
                                      
                     });
-    /*  this.ble.connect(this.idselect).subscribe(data => {
-            console.log(data);
-            this.conectado = true;
-          }
-          );*/
     }
     getdate(buf:Uint8Array){
       let esto = this;
-    (<any>window).MyCordovaPlugin.getDate(buf,"2",function (ArrayBufferd) {
-      console.log("Valor devuelto en Uint8Array");
-      var x = new Uint8Array(ArrayBufferd, 0);
-      console.log(x);
-      esto.tercerwrite(x);
-    });
+      (<any>window).MyCordovaPlugin.getDate(buf,"2",function (ArrayBufferd) {
+        console.log("Valor devuelto en Uint8Array");
+        var x = new Uint8Array(ArrayBufferd, 0);
+        console.log(x);
+        esto.tercerwrite(x);
+      });
    
+  }
+  getDatos(){
+    let a = this.monit.getDatos();
+    console.log("Datos almacenados hasta el momento:");
+    console.log(a);
+  }
+  bubcleinfinito(){
+    setInterval(() => this.llamada(this.monit), 30000);
+  }
+  llamada(monit:MonitorService){
+    monit.recursivo();
   }
 
 }

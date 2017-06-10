@@ -5,7 +5,8 @@ import { Storage } from '@ionic/storage';
 import {Login} from '../providers/login';
 import {HomeService} from '../providers/homeservice';
 import {TratamientoService} from '../providers/tratamientoservice';
-import {HistorialService} from '../providers/historialservice'
+import {HistorialService} from '../providers/historialservice';
+import {MonitorService} from '../providers/monitorservice';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 
@@ -16,6 +17,7 @@ import { LoginPage } from '../pages/login/login';
     Login,
     HomeService,
     TratamientoService,
+    MonitorService,
     HistorialService
   ]
 })
