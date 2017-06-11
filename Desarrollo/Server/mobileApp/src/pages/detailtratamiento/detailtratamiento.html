@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="top">
     <ion-title>
       {{nombre}}
     </ion-title>
@@ -13,7 +13,7 @@
         <h5 class="pad">Descripción: </h5><p class="pad">{{descripcion}}</p>
         <ion-item>
             <ion-label> Notificaciones</ion-label>
-            <ion-toggle [(ngModel)]="notificaciones" (ionChange)="deleteNotificaciones2()"></ion-toggle>
+            <ion-toggle color="secondary" [(ngModel)]="notificaciones" (ionChange)="deleteNotificaciones2()"></ion-toggle>
         </ion-item>
         <div *ngIf="notificaciones">
         <ion-item *ngFor="let item of horas">

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="top">
     <ion-title>
       Monitorizar
     </ion-title>
@@ -10,10 +10,11 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-label><button id="escanear" ion-button (click)="escanear();">escanear</button></ion-label>
-<ion-label><button id="save" ion-button (click)="conectar();">Conectar</button></ion-label>
-<ion-label *ngIf="conectado==true"> Conectado!</ion-label>
-<ion-label > <button id="pedirhr" ion-button (click)="bubcleinfinito();">Monitorizar</button></ion-label>
-<ion-label > <button id="pedirhr" ion-button (click)="getDatos();">Pedir datos</button></ion-label>
-<ion-label > <button id="pedirhr" ion-button (click)="cancelarMonitorizacion();">Cancelar monitorizacion</button></ion-label>
+    <ion-label><button id="buscarpulsera" ion-button (click)="buscar();">Escanear</button></ion-label>
+    <ion-item>
+            <ion-label> Monitorizar</ion-label>
+            <ion-toggle color="secondary" [(ngModel)]="monitori" (ionChange)="monitorizar()"></ion-toggle>
+    </ion-item>
+    <button id="buscarpulsera" ion-button (click)="prueba();">Metodo de prueba</button>
+   
 </ion-content>

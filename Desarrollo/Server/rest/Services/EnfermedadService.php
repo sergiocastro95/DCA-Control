@@ -1,6 +1,5 @@
 <?php
 require_once "./Dao/EnfermedadDAO.php";
-require_once "./Dao/MasterDAO.php";
 //require_once "SupportService.php";
 /***********************************************USUARIO Service****************************************/
 /*AQU� LLAMAMOS AL DAO Y DEVOLVEMOS AL CLIENTE MEDIANTE ECHO*/

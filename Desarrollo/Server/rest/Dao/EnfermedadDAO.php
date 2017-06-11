@@ -1,4 +1,5 @@
 <?php
+include_once "./conection.php";
 class EnfermedadDAO{
 	public static function getById($id){
 		$dataArray = array();

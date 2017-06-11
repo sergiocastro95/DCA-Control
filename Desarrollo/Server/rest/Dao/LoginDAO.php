@@ -1,4 +1,5 @@
 <?php
+include_once "./conection.php";
 class LoginDAO{
 	public static function checkP($user){
 		$dataArray = array();
@@ -48,30 +49,7 @@ class LoginDAO{
 		}
 		return $dataArray;
 	}
-	public static function updateTkn($email, $token){
-		$dataArray = array();
-		try {
-			$conection = openConection();
-			/*DELETE FROM films WHERE kind = 'Musical'*/
-			$sql = "UPDATE usuario SET token='".$token."' where email='".$email."'";
-			//echo $sql;
-			$result = @pg_query($conection, $sql);
-			if (!$result) {//Resultado erroneo
-				header('HTTP/1.1 200 Error con la base de datos');
-				return error_get_last();
-			}else{//Resultado correcto
-				$count = pg_numrows($result);
-				for($i=0; $i<$count; $i++) {
-					$row = pg_fetch_assoc ($result);
-					$dataArray[] = $row;
-				}
-			}
-			@pg_close($conection);
-		}catch(Exception $e){
-			throw new Exception ($e->getMessage());
-		}
-		return $dataArray;
-	}
+
 	public static function insert($enfermedad){
 		$dataArray = array();
 		try {

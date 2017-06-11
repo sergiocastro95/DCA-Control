@@ -21,12 +21,7 @@ class LoginResource{
 
 		switch ($type) {
 			case '4':   //login/password
-				if($_GET['resource2']=="password"){
-					$dataArray = LoginService::restorePassword($objArr);
-				}
-				else if($_GET['resource2']=="passwordrestore"){
-						$dataArray = LoginService::updatePassword($objArr);
-				}else if($_GET['resource2']=="paciente"){
+				if($_GET['resource2']=="paciente"){
 					$dataArray = LoginService::comprobarLoginP($objArr);
 				}else if($_GET['resource2']=="usuario"){
 					$dataArray = LoginService::comprobarLoginU($objArr);

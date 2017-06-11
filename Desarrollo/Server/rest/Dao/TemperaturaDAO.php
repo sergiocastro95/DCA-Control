@@ -1,4 +1,5 @@
 <?php
+include_once "./conection.php";
 class TpDAO{
 
 	public static function getTpByPaciente($idpac){

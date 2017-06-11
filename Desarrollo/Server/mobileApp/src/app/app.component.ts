@@ -27,6 +27,9 @@ export class MyApp {
 
   constructor(platform: Platform, private login:Login, private storage:Storage) {
     platform.ready().then(() => {
+     /* this.bm.enable();
+      console.log("backgroundmode es: ", this.bm.isActive());
+      console.log("backgroundmode esssss: ", this.bm.isEnabled());*/
       this.loginservice=login;
       this.storage.get('userid').then((val) => {
         if(val!=null){

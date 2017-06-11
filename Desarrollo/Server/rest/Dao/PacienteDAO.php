@@ -1,4 +1,5 @@
 <?php
+include_once "./conection.php";
 class PacienteDAO{
 	public static function getById($id){
 		$dataArray = array();
@@ -160,25 +161,9 @@ class PacienteDAO{
 				$sql = $sql."tratamientos_nuevos=0";
 			}else if($usuario['tipo']=="2"){//medico
 				$sql = $sql."episodios_nuevos=0";
+			}else if($usuario['tipo']=="3"){
+				$sql = $sql."episodios_nuevos= episodios_nuevos +1";
 			}
-			/*$i = 0;
-			$keys = "";
-			$values = "";
-	
-			foreach($usuario as $key => $key_value) {
-				if($i==0) {
-					if(!$key_value)
-						$sql = $sql.$key."= NULL";
-						else
-							$sql = $sql.$key."='".$key_value."'";
-				} else {
-					if(!$key_value)
-						$sql = $sql.",".$key."= NULL";
-						else
-							$sql = $sql.",".$key."='".$key_value."'";
-				}
-				$i++;
-			}*/
 			$sql = $sql." where sip= '".$id."'";
 			//echo $sql;
 			$result = @pg_query($conection, $sql);

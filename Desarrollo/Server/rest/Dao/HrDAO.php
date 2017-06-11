@@ -1,4 +1,5 @@
 <?php
+include_once "./conection.php";
 class HrDAO{
 	
 	public static function getHrByPaciente($idpac){
