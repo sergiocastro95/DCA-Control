@@ -1,4 +1,4 @@
-# TFG
+# DCA Control
 Trabajo de fin de grado de Sergio Castro por Universidad de Alicante.
 
 DCA Control es un sistema de monitorización y seguimiento de pacientes con epilepsia, especialmente niños.
