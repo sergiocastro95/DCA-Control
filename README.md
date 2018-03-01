@@ -18,3 +18,6 @@ https://www.youtube.com/watch?v=cw3c2DLWjNc&feature=youtu.be
 - WebApp: Analíticas
 
 https://www.youtube.com/watch?v=X6yn8JnNmfk&feature=youtu.be
+
+Licencia:
+Privado, consultar con propietario para reutilizar ;)
